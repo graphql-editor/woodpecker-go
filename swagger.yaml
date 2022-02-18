@@ -1,0 +1,474 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: Woodpecker API
+  description: Woodpecker
+  version: "1.0.0"
+# the domain of the service
+host: api.woodpecker.co
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+securityDefinitions:
+  basicAuth:
+    type: basic
+    description: HTTP Basic Authentication. Works over `HTTPS`
+basePath: /rest/v1
+produces:
+  - application/json
+paths:
+  /prospects:
+    get:
+      security:
+       - basicAuth: []
+      summary: get the list of prospects
+      description: |
+        get the list of prospects
+      parameters:
+        - name: campaigns_id
+          in: query
+          description: Campaign ID
+          required: false
+          type: array
+          items:
+            type: number
+            format: int32
+        - name: status
+          in: query
+          description: Prospect's status
+          required: false
+          type: string
+          enum:
+            - ACTIVE
+            - BLACKLIST
+            - AUTOREPLIED
+            - TO-CHECK
+            - TO-REVIEW
+            - BOUNCED
+            - INVALID
+            - REPLIED
+        - name: activity
+          in: query
+          description: Prospect's activity
+          required: false
+          type: string
+          enum:
+            - OPENED
+            - NOT-OPENED
+            - CLICKED
+            - NOT-CLICKED
+        - name: interested
+          in: query
+          description: Prospect's interested
+          required: false
+          type: string
+          enum:
+            - INTERESTED
+            - NOT-INTERESTED
+            - MAYBE-LATER
+            - NOT-MARKED
+        - name: contacted
+          in: query
+          description: Whether a Prospect has been contacted or not
+          required: false
+          type: string
+          enum:
+            - yes
+            - no
+        - name: first_name
+          in: query
+          description: Prospect's first name
+          required: false
+          type: string
+        - name: email
+          in: query
+          description: Prospect's email address
+          required: false
+          type: string
+        - name: second_name
+          in: query
+          description: Prospect's second name
+          required: false
+          type: string
+        - name: company
+          in: query
+          description: Prospect's company
+          required: false
+          type: string
+        - name: industry
+          in: query
+          description: Prospect's industry of the company
+          required: false
+          type: string
+        - name: website
+          in: query
+          description: Prospect's website address
+          required: false
+          type: string
+        - name: tags
+          in: query
+          description: Prospect's tags
+          required: false
+          type: string
+        - name: title
+          in: query
+          description: Prospect's title
+          required: false
+          type: string
+        - name: address
+          in: query
+          description: Prospect's physical address of the prospect
+          required: false
+          type: string
+        - name: city
+          in: query
+          description: Prospect's city
+          required: false
+          type: string
+        - name: state
+          in: query
+          description: Prospect's state
+          required: false
+          type: string
+        - name: country
+          in: query
+          description: Prospect's country
+          required: false
+          type: string
+        - name: snippet1
+          in: query
+          description: Prospect's custom snippets of the prospect
+          required: false
+          type: string
+        - name: snippet2
+          in: query
+          description: Prospect's custom snippets of the prospect
+          required: false
+          type: string
+        - name: snippet3
+          in: query
+          description: Prospect's custom snippets of the prospect
+          required: false
+          type: string
+        - name: snippet4
+          in: query
+          description: Prospect's custom snippets of the prospect
+          required: false
+          type: string
+        - name: page
+          in: query
+          description: Page number
+          required: false
+          type: number
+          format: integer
+        - name: per_page
+          in: query
+          description: Per Page results
+          required: false
+          default: 100
+          maximum: 500
+          type: number
+          format: int32
+        - name: sort
+          in: query
+          description: Sorting field
+          required: false
+          type: string
+          pattern: ^[+-]{0,1}.*$
+        - name: diff
+          in: query
+          description: Request to see the data that have been changed since any specific date
+          required: false
+          type: string
+          pattern: (updated|last_opened|last_clicked)>\d{4}-\d{2}-\d{2}'T'\d{2}:\d{2}:\d{2}.*
+      tags:
+        - Prospects
+      responses:
+        200:
+          description: An array of prospects
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Prospect'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      security:
+       - basicAuth: []
+      summary: get the list of prospects
+      description: |
+        get the list of prospects
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: Prospect's ID
+          type: number
+          format: int32
+        - name: campaign_id
+          in: query
+          required: false
+          description: Prospect campaign's ID
+          type: number
+          format: int32
+      responses:
+        200:
+          description: Empty response
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /campaign_list:
+    get:
+      security:
+       - basicAuth: []
+      summary: get the list of campaigns
+      description: |
+        get the list of campaigns
+      parameters:
+        - name: id
+          in: query
+          description: Campaign ID
+          required: false
+          type: array
+          items:
+            type: number
+            format: int32
+        - name: status
+          in: query
+          description: Campaign status
+          required: false
+          type: string
+          enum:
+            - RUNNING
+            - PAUSED
+            - COMPLETED
+            - DRAFT
+            - EDITED
+            - STOPPED
+      tags:
+        - Campaigns
+      responses:
+        200:
+          description: An array of campaigns
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Campaign'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /add_prospects_campaign:
+    post:
+      security:
+       - basicAuth: []
+      summary: add prospects to the campaign
+      description: |
+        get the list of campaigns
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateProspect'
+      tags:
+        - Prospects
+      responses:
+        200:
+          description: The created prospect
+          schema:
+            $ref: '#/definitions/CreateProspectResponse'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /stop_followups:
+    post:
+      security:
+       - basicAuth: []
+      summary: change prospect status to BLACKLIST
+      parameters:
+        - name: body
+          in: body
+          schema:
+            type: object
+            properties:
+              prospect:
+                type: object
+                properties:
+                  email:
+                    type: string
+      responses:
+        200:
+          description: The created prospect
+          schema:
+            $ref: '#/definitions/Status'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /webhooks/subscribe:
+    post:
+      security:
+       - basicAuth: []
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/WebhookSubscribe'
+      responses:
+        200:
+          description: The created prospect
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  WebhookSubscribe:
+    type: object
+    properties:
+      target_url:
+        type: string
+      event:
+        type: string
+        enum:
+          - prospect_replied
+          - link_clicked
+          - email_opened
+          - prospect_bounced
+          - prospect_invalid
+          - prospect_interested
+          - prospect_maybe_later
+          - prospect_not_interested
+          - prospect_autoreplied
+          - followup_after_autoreply
+  Prospect:
+    allOf:
+    - $ref: '#/definitions/CreateProspect'
+    - properties:
+        last_contacted:
+          type: string
+        last_replied:
+          type: string
+        updated:
+          type: string
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - BLACKLIST
+            - AUTOREPLIED
+            - TO-CHECK
+            - TO-REVIEW
+            - BOUNCED
+            - INVALID
+            - REPLIED
+  CreateProspect:
+    type: object
+    properties:
+      update:
+        type: string
+      campaign:
+        type: object
+        properties:
+          campaign_id:
+            type: number
+            format: int32
+      prospects:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: number
+            email:
+              type: string
+            first_name:
+              type: string
+            last_name:
+              type: string
+            company:
+              type: string
+            website:
+              type: string
+            tags:
+              type: string
+            title:
+              type: string
+            phone:
+              type: string
+            address:
+              type: string
+            city:
+              type: string
+            country:
+              type: string
+            snipet1:
+              type: string
+            snipet2:
+              type: string
+            snipet3:
+              type: string
+            snipet4:
+              type: string
+  Campaign:
+    type: object
+    properties:
+      id:
+        type: number
+      name:
+        type: string
+      status:
+        type: string
+        enum:
+          - RUNNING
+          - PAUSED
+          - COMPLETED
+          - DRAFT
+          - EDITED
+          - STOPPED
+      from_name:
+        type: string
+      from_email:
+        type: string
+      created:
+        type: string
+  Status:
+    type: object
+    properties:
+      status:
+          type: object
+          properties:
+            status:
+              type: string
+            code:
+              type: string
+            msg:
+              type: string
+  CreateProspectResponse:
+    allOf:
+      - $ref: '#/definitions/Status'
+      - properties:
+          prospects:
+            type: array
+            items:
+              type: object
+              properties:
+                email:
+                  type: string
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
+
