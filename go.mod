@@ -1,4 +1,4 @@
-module github.com/graphql-editor/woodpecker
+module github.com/graphql-editor/woodpecker-go
 
 go 1.17
 
