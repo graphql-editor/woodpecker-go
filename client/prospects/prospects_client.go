@@ -28,7 +28,7 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	GetProspects(params *GetProspectsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProspectsOK, error)
+	GetProspects(params *GetProspectsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProspectsOK, *GetProspectsNoContent, error)
 
 	PostAddProspectsCampaign(params *PostAddProspectsCampaignParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostAddProspectsCampaignOK, error)
 
@@ -43,7 +43,7 @@ type ClientService interface {
   get the list of prospects
 
 */
-func (a *Client) GetProspects(params *GetProspectsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProspectsOK, error) {
+func (a *Client) GetProspects(params *GetProspectsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProspectsOK, *GetProspectsNoContent, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProspectsParams()
@@ -67,15 +67,17 @@ func (a *Client) GetProspects(params *GetProspectsParams, authInfo runtime.Clien
 
 	result, err := a.transport.Submit(op)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	success, ok := result.(*GetProspectsOK)
-	if ok {
-		return success, nil
+	switch value := result.(type) {
+	case *GetProspectsOK:
+		return value, nil, nil
+	case *GetProspectsNoContent:
+		return nil, value, nil
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*GetProspectsDefault)
-	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+	return nil, nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
 /*

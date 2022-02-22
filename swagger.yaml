@@ -197,6 +197,12 @@ paths:
             type: array
             items:
               $ref: '#/definitions/Prospect'
+        204:
+          description: An array of prospects
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Prospect'
         default:
           description: Unexpected error
           schema:

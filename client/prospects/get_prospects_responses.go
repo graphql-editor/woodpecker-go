@@ -29,6 +29,12 @@ func (o *GetProspectsReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return result, nil
+	case 204:
+		result := NewGetProspectsNoContent()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return result, nil
 	default:
 		result := NewGetProspectsDefault(response.Code())
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -62,6 +68,36 @@ func (o *GetProspectsOK) GetPayload() []*models.Prospect {
 }
 
 func (o *GetProspectsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetProspectsNoContent creates a GetProspectsNoContent with default headers values
+func NewGetProspectsNoContent() *GetProspectsNoContent {
+	return &GetProspectsNoContent{}
+}
+
+/* GetProspectsNoContent describes a response with status code 204, with default header values.
+
+An array of prospects
+*/
+type GetProspectsNoContent struct {
+	Payload []*models.Prospect
+}
+
+func (o *GetProspectsNoContent) Error() string {
+	return fmt.Sprintf("[GET /prospects][%d] getProspectsNoContent  %+v", 204, o.Payload)
+}
+func (o *GetProspectsNoContent) GetPayload() []*models.Prospect {
+	return o.Payload
+}
+
+func (o *GetProspectsNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
