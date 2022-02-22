@@ -17,6 +17,6 @@ func NewAPIKey(apiKey string) APIKey {
 
 // AuthenticateRequest implements  runtime.ClientAuthInfoWriter
 func (a APIKey) AuthenticateRequest(req runtime.ClientRequest, reg strfmt.Registry) error {
-	req.SetHeaderParam("Authorization", "Basic "+string(a))
+	req.SetHeaderParam("Authorization", "Basic "+string(a)+":X")
 	return nil
 }
