@@ -27,6 +27,11 @@ paths:
       description: |
         get the list of prospects
       parameters:
+        - name: search
+          in: query
+          description: Search string
+          required: false
+          type: string
         - name: campaigns_id
           in: query
           description: Campaign ID

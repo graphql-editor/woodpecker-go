@@ -149,6 +149,12 @@ type GetProspectsParams struct {
 	*/
 	PerPage *int32
 
+	/* Search.
+
+	   Search string
+	*/
+	Search *string
+
 	/* SecondName.
 
 	   Prospect's second name
@@ -431,6 +437,17 @@ func (o *GetProspectsParams) WithPerPage(perPage *int32) *GetProspectsParams {
 // SetPerPage adds the perPage to the get prospects params
 func (o *GetProspectsParams) SetPerPage(perPage *int32) {
 	o.PerPage = perPage
+}
+
+// WithSearch adds the search to the get prospects params
+func (o *GetProspectsParams) WithSearch(search *string) *GetProspectsParams {
+	o.SetSearch(search)
+	return o
+}
+
+// SetSearch adds the search to the get prospects params
+func (o *GetProspectsParams) SetSearch(search *string) {
+	o.Search = search
 }
 
 // WithSecondName adds the secondName to the get prospects params
@@ -789,6 +806,23 @@ func (o *GetProspectsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		if qPerPage != "" {
 
 			if err := r.SetQueryParam("per_page", qPerPage); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Search != nil {
+
+		// query param search
+		var qrSearch string
+
+		if o.Search != nil {
+			qrSearch = *o.Search
+		}
+		qSearch := qrSearch
+		if qSearch != "" {
+
+			if err := r.SetQueryParam("search", qSearch); err != nil {
 				return err
 			}
 		}
