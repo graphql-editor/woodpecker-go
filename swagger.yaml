@@ -287,6 +287,30 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
+  /add_prospects_list:
+    post:
+      security:
+       - basicAuth: []
+      summary: add prospects to the global prospects list
+      description: |
+        get the list of campaigns
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CreateGlobalProspect'
+      tags:
+        - Prospects
+      responses:
+        200:
+          description: The created prospect
+          schema:
+            $ref: '#/definitions/CreateProspectResponse'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
   /stop_followups:
     post:
       security:
@@ -379,6 +403,48 @@ definitions:
           campaign_id:
             type: number
             format: int32
+      prospects:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: number
+            email:
+              type: string
+            first_name:
+              type: string
+            last_name:
+              type: string
+            company:
+              type: string
+            website:
+              type: string
+            tags:
+              type: string
+            title:
+              type: string
+            phone:
+              type: string
+            address:
+              type: string
+            city:
+              type: string
+            country:
+              type: string
+            snipet1:
+              type: string
+            snipet2:
+              type: string
+            snipet3:
+              type: string
+            snipet4:
+              type: string
+  CreateGlobalProspect:
+    type: object
+    properties:
+      update:
+        type: string
       prospects:
         type: array
         items:

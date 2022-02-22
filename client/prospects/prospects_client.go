@@ -32,6 +32,8 @@ type ClientService interface {
 
 	PostAddProspectsCampaign(params *PostAddProspectsCampaignParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostAddProspectsCampaignOK, error)
 
+	PostAddProspectsList(params *PostAddProspectsListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostAddProspectsListOK, error)
+
 	SetTransport(transport runtime.ClientTransport)
 }
 
@@ -114,6 +116,47 @@ func (a *Client) PostAddProspectsCampaign(params *PostAddProspectsCampaignParams
 	}
 	// unexpected success response
 	unexpectedSuccess := result.(*PostAddProspectsCampaignDefault)
+	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
+}
+
+/*
+  PostAddProspectsList adds prospects to the global prospects list
+
+  get the list of campaigns
+
+*/
+func (a *Client) PostAddProspectsList(params *PostAddProspectsListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostAddProspectsListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostAddProspectsListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "PostAddProspectsList",
+		Method:             "POST",
+		PathPattern:        "/add_prospects_list",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PostAddProspectsListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PostAddProspectsListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	unexpectedSuccess := result.(*PostAddProspectsListDefault)
 	return nil, runtime.NewAPIError("unexpected success response: content available as default response in error", unexpectedSuccess, unexpectedSuccess.Code())
 }
 
