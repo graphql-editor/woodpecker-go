@@ -10,9 +10,9 @@ import (
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/graphql-editor/woodpecker/client/campaigns"
-	"github.com/graphql-editor/woodpecker/client/operations"
-	"github.com/graphql-editor/woodpecker/client/prospects"
+	"github.com/graphql-editor/woodpecker-go/client/campaigns"
+	"github.com/graphql-editor/woodpecker-go/client/operations"
+	"github.com/graphql-editor/woodpecker-go/client/prospects"
 )
 
 // Default woodpecker API HTTP client.

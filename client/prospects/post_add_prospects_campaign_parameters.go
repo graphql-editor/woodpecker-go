@@ -15,7 +15,7 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/graphql-editor/woodpecker/models"
+	"github.com/graphql-editor/woodpecker-go/models"
 )
 
 // NewPostAddProspectsCampaignParams creates a new PostAddProspectsCampaignParams object,

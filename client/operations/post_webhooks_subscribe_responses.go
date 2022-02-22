@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/graphql-editor/woodpecker/models"
+	"github.com/graphql-editor/woodpecker-go/models"
 )
 
 // PostWebhooksSubscribeReader is a Reader for the PostWebhooksSubscribe structure.

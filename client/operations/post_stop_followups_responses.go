@@ -15,7 +15,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"github.com/graphql-editor/woodpecker/models"
+	"github.com/graphql-editor/woodpecker-go/models"
 )
 
 // PostStopFollowupsReader is a Reader for the PostStopFollowups structure.
