@@ -386,6 +386,30 @@ definitions:
     allOf:
     - $ref: '#/definitions/CreateProspect'
     - properties:
+        id:
+          type: number
+        email:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        company:
+          type: string
+        website:
+          type: string
+        tags:
+          type: string
+        title:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
         last_contacted:
           type: string
         last_replied:
@@ -403,6 +427,14 @@ definitions:
             - BOUNCED
             - INVALID
             - REPLIED
+        snipet1:
+          type: string
+        snipet2:
+          type: string
+        snipet3:
+          type: string
+        snipet4:
+          type: string
   CreateProspect:
     type: object
     properties:

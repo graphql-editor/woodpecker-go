@@ -21,18 +21,66 @@ import (
 type Prospect struct {
 	CreateProspect
 
+	// address
+	Address string `json:"address,omitempty"`
+
+	// city
+	City string `json:"city,omitempty"`
+
+	// company
+	Company string `json:"company,omitempty"`
+
+	// country
+	Country string `json:"country,omitempty"`
+
+	// email
+	Email string `json:"email,omitempty"`
+
+	// first name
+	FirstName string `json:"first_name,omitempty"`
+
+	// id
+	ID float64 `json:"id,omitempty"`
+
 	// last contacted
 	LastContacted string `json:"last_contacted,omitempty"`
 
+	// last name
+	LastName string `json:"last_name,omitempty"`
+
 	// last replied
 	LastReplied string `json:"last_replied,omitempty"`
+
+	// phone
+	Phone string `json:"phone,omitempty"`
+
+	// snipet1
+	Snipet1 string `json:"snipet1,omitempty"`
+
+	// snipet2
+	Snipet2 string `json:"snipet2,omitempty"`
+
+	// snipet3
+	Snipet3 string `json:"snipet3,omitempty"`
+
+	// snipet4
+	Snipet4 string `json:"snipet4,omitempty"`
 
 	// status
 	// Enum: [ACTIVE BLACKLIST AUTOREPLIED TO-CHECK TO-REVIEW BOUNCED INVALID REPLIED]
 	Status string `json:"status,omitempty"`
 
+	// tags
+	Tags string `json:"tags,omitempty"`
+
+	// title
+	Title string `json:"title,omitempty"`
+
 	// updated
 	Updated string `json:"updated,omitempty"`
+
+	// website
+	Website string `json:"website,omitempty"`
 }
 
 // UnmarshalJSON unmarshals this object from a JSON structure
@@ -46,25 +94,89 @@ func (m *Prospect) UnmarshalJSON(raw []byte) error {
 
 	// AO1
 	var dataAO1 struct {
+		Address string `json:"address,omitempty"`
+
+		City string `json:"city,omitempty"`
+
+		Company string `json:"company,omitempty"`
+
+		Country string `json:"country,omitempty"`
+
+		Email string `json:"email,omitempty"`
+
+		FirstName string `json:"first_name,omitempty"`
+
+		ID float64 `json:"id,omitempty"`
+
 		LastContacted string `json:"last_contacted,omitempty"`
+
+		LastName string `json:"last_name,omitempty"`
 
 		LastReplied string `json:"last_replied,omitempty"`
 
+		Phone string `json:"phone,omitempty"`
+
+		Snipet1 string `json:"snipet1,omitempty"`
+
+		Snipet2 string `json:"snipet2,omitempty"`
+
+		Snipet3 string `json:"snipet3,omitempty"`
+
+		Snipet4 string `json:"snipet4,omitempty"`
+
 		Status string `json:"status,omitempty"`
 
+		Tags string `json:"tags,omitempty"`
+
+		Title string `json:"title,omitempty"`
+
 		Updated string `json:"updated,omitempty"`
+
+		Website string `json:"website,omitempty"`
 	}
 	if err := swag.ReadJSON(raw, &dataAO1); err != nil {
 		return err
 	}
 
+	m.Address = dataAO1.Address
+
+	m.City = dataAO1.City
+
+	m.Company = dataAO1.Company
+
+	m.Country = dataAO1.Country
+
+	m.Email = dataAO1.Email
+
+	m.FirstName = dataAO1.FirstName
+
+	m.ID = dataAO1.ID
+
 	m.LastContacted = dataAO1.LastContacted
+
+	m.LastName = dataAO1.LastName
 
 	m.LastReplied = dataAO1.LastReplied
 
+	m.Phone = dataAO1.Phone
+
+	m.Snipet1 = dataAO1.Snipet1
+
+	m.Snipet2 = dataAO1.Snipet2
+
+	m.Snipet3 = dataAO1.Snipet3
+
+	m.Snipet4 = dataAO1.Snipet4
+
 	m.Status = dataAO1.Status
 
+	m.Tags = dataAO1.Tags
+
+	m.Title = dataAO1.Title
+
 	m.Updated = dataAO1.Updated
+
+	m.Website = dataAO1.Website
 
 	return nil
 }
@@ -79,22 +191,86 @@ func (m Prospect) MarshalJSON() ([]byte, error) {
 	}
 	_parts = append(_parts, aO0)
 	var dataAO1 struct {
+		Address string `json:"address,omitempty"`
+
+		City string `json:"city,omitempty"`
+
+		Company string `json:"company,omitempty"`
+
+		Country string `json:"country,omitempty"`
+
+		Email string `json:"email,omitempty"`
+
+		FirstName string `json:"first_name,omitempty"`
+
+		ID float64 `json:"id,omitempty"`
+
 		LastContacted string `json:"last_contacted,omitempty"`
+
+		LastName string `json:"last_name,omitempty"`
 
 		LastReplied string `json:"last_replied,omitempty"`
 
+		Phone string `json:"phone,omitempty"`
+
+		Snipet1 string `json:"snipet1,omitempty"`
+
+		Snipet2 string `json:"snipet2,omitempty"`
+
+		Snipet3 string `json:"snipet3,omitempty"`
+
+		Snipet4 string `json:"snipet4,omitempty"`
+
 		Status string `json:"status,omitempty"`
 
+		Tags string `json:"tags,omitempty"`
+
+		Title string `json:"title,omitempty"`
+
 		Updated string `json:"updated,omitempty"`
+
+		Website string `json:"website,omitempty"`
 	}
+
+	dataAO1.Address = m.Address
+
+	dataAO1.City = m.City
+
+	dataAO1.Company = m.Company
+
+	dataAO1.Country = m.Country
+
+	dataAO1.Email = m.Email
+
+	dataAO1.FirstName = m.FirstName
+
+	dataAO1.ID = m.ID
 
 	dataAO1.LastContacted = m.LastContacted
 
+	dataAO1.LastName = m.LastName
+
 	dataAO1.LastReplied = m.LastReplied
+
+	dataAO1.Phone = m.Phone
+
+	dataAO1.Snipet1 = m.Snipet1
+
+	dataAO1.Snipet2 = m.Snipet2
+
+	dataAO1.Snipet3 = m.Snipet3
+
+	dataAO1.Snipet4 = m.Snipet4
 
 	dataAO1.Status = m.Status
 
+	dataAO1.Tags = m.Tags
+
+	dataAO1.Title = m.Title
+
 	dataAO1.Updated = m.Updated
+
+	dataAO1.Website = m.Website
 
 	jsonDataAO1, errAO1 := swag.WriteJSON(dataAO1)
 	if errAO1 != nil {
