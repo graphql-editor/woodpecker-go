@@ -7,11 +7,13 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // CreateProspect create prospect
@@ -245,6 +247,10 @@ type CreateProspectProspectsItems0 struct {
 	// snipet4
 	Snipet4 string `json:"snipet4,omitempty"`
 
+	// status
+	// Enum: [ACTIVE BLACKLIST AUTOREPLIED TO-CHECK TO-REVIEW BOUNCED INVALID REPLIED]
+	Status string `json:"status,omitempty"`
+
 	// tags
 	Tags string `json:"tags,omitempty"`
 
@@ -257,6 +263,75 @@ type CreateProspectProspectsItems0 struct {
 
 // Validate validates this create prospect prospects items0
 func (m *CreateProspectProspectsItems0) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateStatus(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+var createProspectProspectsItems0TypeStatusPropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["ACTIVE","BLACKLIST","AUTOREPLIED","TO-CHECK","TO-REVIEW","BOUNCED","INVALID","REPLIED"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		createProspectProspectsItems0TypeStatusPropEnum = append(createProspectProspectsItems0TypeStatusPropEnum, v)
+	}
+}
+
+const (
+
+	// CreateProspectProspectsItems0StatusACTIVE captures enum value "ACTIVE"
+	CreateProspectProspectsItems0StatusACTIVE string = "ACTIVE"
+
+	// CreateProspectProspectsItems0StatusBLACKLIST captures enum value "BLACKLIST"
+	CreateProspectProspectsItems0StatusBLACKLIST string = "BLACKLIST"
+
+	// CreateProspectProspectsItems0StatusAUTOREPLIED captures enum value "AUTOREPLIED"
+	CreateProspectProspectsItems0StatusAUTOREPLIED string = "AUTOREPLIED"
+
+	// CreateProspectProspectsItems0StatusTODashCHECK captures enum value "TO-CHECK"
+	CreateProspectProspectsItems0StatusTODashCHECK string = "TO-CHECK"
+
+	// CreateProspectProspectsItems0StatusTODashREVIEW captures enum value "TO-REVIEW"
+	CreateProspectProspectsItems0StatusTODashREVIEW string = "TO-REVIEW"
+
+	// CreateProspectProspectsItems0StatusBOUNCED captures enum value "BOUNCED"
+	CreateProspectProspectsItems0StatusBOUNCED string = "BOUNCED"
+
+	// CreateProspectProspectsItems0StatusINVALID captures enum value "INVALID"
+	CreateProspectProspectsItems0StatusINVALID string = "INVALID"
+
+	// CreateProspectProspectsItems0StatusREPLIED captures enum value "REPLIED"
+	CreateProspectProspectsItems0StatusREPLIED string = "REPLIED"
+)
+
+// prop value enum
+func (m *CreateProspectProspectsItems0) validateStatusEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, createProspectProspectsItems0TypeStatusPropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *CreateProspectProspectsItems0) validateStatus(formats strfmt.Registry) error {
+	if swag.IsZero(m.Status) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateStatusEnum("status", "body", m.Status); err != nil {
+		return err
+	}
+
 	return nil
 }
 

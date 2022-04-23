@@ -483,6 +483,17 @@ definitions:
               type: string
             snipet4:
               type: string
+            status:
+              type: string
+              enum:
+                - ACTIVE
+                - BLACKLIST
+                - AUTOREPLIED
+                - TO-CHECK
+                - TO-REVIEW
+                - BOUNCED
+                - INVALID
+                - REPLIED
   CreateGlobalProspect:
     type: object
     properties:
